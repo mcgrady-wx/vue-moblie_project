@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <mt-header fixed title="Vue移动项目"></mt-header>
+    <div>123</div>
     <router-view></router-view>
     <nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item mui-active" href="#tabbar">
@@ -29,6 +30,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#app{
+  padding-top: 40px;
+}
 
 </style>
