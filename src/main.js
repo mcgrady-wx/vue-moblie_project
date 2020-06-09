@@ -3,7 +3,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 //使用mint-ui的组件，按需加载
-import { Header, Swipe, SwipeItem } from 'mint-ui'
+import { Header, Swipe, SwipeItem,Button  } from 'mint-ui'
 // 导入vue-resource
 import VueResource from "vue-resource"
 // 注册vue-resource
@@ -20,6 +20,8 @@ Vue.component(Header.name, Header);
 // 注册minit-ui的轮播图组件
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+// 注册minit-ui的按钮组件
+Vue.component(Button.name, Button);
 
 Vue.config.productionTip = false
 

@@ -6,8 +6,8 @@ import Home from '../pages/Home.vue'
 import Member from '../pages/Member.vue'
 import Shopcar from '../pages/Shopcar.vue'
 import Search from '../pages/Search.vue'
-import Newlist from "../components/Newlist.vue"
-import Newinfo from "../components/Newinfo.vue"
+import Newlist from "../pages/Newlist.vue"
+import Newinfo from "../pages/Newinfo.vue"
 
 Vue.use(Router)
 

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- 使用mui中的media-list代码 -->
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-for="item in newlists" :key="item.id">
                 <router-link :to="`/home/news/${item.id}`">
