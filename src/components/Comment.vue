@@ -1,8 +1,8 @@
 <template>
     <div class="cmt-container">
         <h4>发布评论</h4>
-        <textarea placeholder="请输入评论（最多120个字）" maxlength="120"></textarea>
-        <mt-button type="primary" size="large">提交</mt-button>
+        <textarea placeholder="请输入评论（最多120个字）" maxlength="120" v-model="msg"></textarea>
+        <mt-button type="primary" size="large" @click="postComment">提交</mt-button>
         <div class="cmt-list">
             <div class="cmt-item" v-for="(item, index) in comments" :key="index">
                 <p class="cmt-title">
@@ -24,7 +24,8 @@ export default {
     data(){
         return {
             comments:[],
-            page:1
+            page:1,
+            msg:''
         }
     },
     methods: {
@@ -46,6 +47,26 @@ export default {
             //请求下一页内容
             this.getComment()
             //console.log(this.page)
+        },
+        postComment(){
+            //实际是发起post请求，把评论内容发送后台保存，后台返回保存结果，通过返回结果，手动设计数据，直接插入到comments数据的最开头，让页面显示
+            //而不是通过重新调用getComment()来获取最新数据显示，存在的BUG就是，如果当page不为1的时候请求过来的数据是page当前值的那页数据
+            //内容验证
+            //console.log(this.msg.trim().length)
+            if (this.msg.trim().length === 0) {
+              return Toast("内容不能为空")
+            }
+            //不为空发起post请求，如果返回成功显示内容
+            //this.$http.post("api路径"，{content:内容}).then(成功(),失败())
+            //以下代码应该放在请求成功的函数体内部
+            Toast("发表成功")
+            var msgdata={
+                "name":"匿名用户",
+                "time":"2020-02-02 02:02:02",
+                "content":this.msg
+            }
+            this.comments.unshift(msgdata)
+            this.msg=""
         }
     },
 

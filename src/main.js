@@ -8,6 +8,8 @@ import { Header, Swipe, SwipeItem,Button  } from 'mint-ui'
 import VueResource from "vue-resource"
 // 注册vue-resource
 Vue.use(VueResource)
+//Vue.http.options.root = '/root';//设置请求的根路径
+Vue.http.options.emulateJSON = true;//全局设置post请求时候 按照表单数据格式请求
 
 //导入mui的css样式
 import './lib/mui/css/mui.min.css'
