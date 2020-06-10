@@ -25,7 +25,7 @@ export default {
         return {
             comments:[],
             page:1,
-            msg:''
+            msg:'',
         }
     },
     methods: {
