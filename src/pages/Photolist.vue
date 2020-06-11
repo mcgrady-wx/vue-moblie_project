@@ -5,7 +5,7 @@
         <div id="slider" class="mui-slider">
             <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                 <div class="mui-scroll">
-                    <a :class="['mui-control-item',item.id==0?'mui-active':'']" href="#item1mobile" data-wid="tab-top-subpage-1.html" v-for="item in controllist" :key="item.id">
+                    <a :class="['mui-control-item',item.id==0?'mui-active':'']" data-wid="tab-top-subpage-1.html" v-for="item in controllist" :key="item.id" @click="getPhotolist(item.id)">
                         {{item.title}}
                     </a>   
                 </div>
@@ -13,13 +13,13 @@
         </div>
         <!-- 使用懒加载的方式显示图片，mint-ui的Lazy load -->
         <ul class="photo-list">
-            <li v-for="item in list" :key="item.id">
+            <router-link v-for="item in list" :key="item.id" tag="li" :to="'/home/photo/'+item.id">
               <img v-lazy="item.url">
               <div class="info">
                 <div class="infotitle">{{item.title}}</div>
                 <div class="infobody">{{item.zhaiyao}}</div>
               </div>
-            </li>
+            </router-link>
         </ul>
 
     </div>
@@ -53,7 +53,7 @@ export default {
         },
         getPhotolist(photoid){//获取图片列表
             var url="/static/photolist"+photoid+".json"
-            console.log(url)
+            //console.log(url)
             this.$http.get(url).then((reslut)=>{
                 if (reslut.data.state == 1) {//成功
                     this.list=reslut.data.data
@@ -61,9 +61,7 @@ export default {
                 }         
             })
         },
-        add(){
-            console.log("jj")
-        }
+       
     },
     created() {
         //获取到选项数据
@@ -85,6 +83,9 @@ export default {
     width: 40px;
     height: 300px;
     margin: auto;
+    }
+    *{
+        touch-action: none; 
     }
     .photo-list{
         padding:10px;

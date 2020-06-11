@@ -32,7 +32,7 @@ export default {
         getComment(){
             this.$http.get('/static/newcomment.json').then((reslut)=>{
                  //console.log(reslut.data)
-                 //console.log(this.id)，实际中应该是通过传过来的新闻ID+page页码，请求对应的新闻评价列表，首次都是显示第一页评价
+                 //console.log(this.id)，实际中应该是通过传过来的ID+page页码，请求对应的评价列表，首次都是显示第一页评价
                  if (reslut.data.state == 1) {//成功
                     //加载更多数据
                     this.comments=this.comments.concat(reslut.data.data)

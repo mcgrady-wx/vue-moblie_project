@@ -9,6 +9,7 @@ import Search from '../pages/Search.vue'
 import Newlist from "../pages/Newlist.vue"
 import Newinfo from "../pages/Newinfo.vue"
 import Photolist from "../pages/Photolist.vue"
+import Photoinfo from "../pages/Photoinfo.vue"
 
 Vue.use(Router)
 
@@ -21,7 +22,8 @@ export default new Router({
    {path:'/search',component:Search},
    {path:'/home/news',component:Newlist},
    {path:'/home/news/:id',component:Newinfo},
-   {path:'/home/photo',component:Photolist}
+   {path:'/home/photo',component:Photolist},
+   {path:'/home/photo/:id',component:Photoinfo}
   ],
   linkActiveClass:'mui-active'//把默认点击高亮的class类router-link-active 改为自己设置的
 })

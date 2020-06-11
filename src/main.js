@@ -31,6 +31,11 @@ import './lib/mui/css/mui.min.css'
 //导入mui的扩展图标的css样式
 import './lib/mui/css/icons-extra.css'
 
+//引入vue-preview组件，实现图片缩略图显示
+import vuePicturePreview from 'vue-picture-preview';
+Vue.component('Previewer', vuePicturePreview);
+
+
 
 Vue.config.productionTip = false
 
