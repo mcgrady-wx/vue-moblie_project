@@ -1,11 +1,15 @@
 <template>
     <div>
         <!-- 使用mui的tab-top-webview-main代码段显示顶部选项卡 -->
+        <!-- 使用mui的tab-top-webview-main代码段存在3个BUG：
+            1、导入后会导致底部导航不能跳转，原因是代码段中，其中一个class类冲突（mui-tab-item），解决方法是把底部导航中和该class类的所有样式全部手动考下来，然后重新命名该class类
+            2、只能刷新后才有拖拽效果，原因是组件初始化的时候还没有mui-scroll-wrapper这个class类，解决办法是把初始化的动作放到vue的钩子函数当中去mounted(){}
+            3、在代码段中使用@click点击事件得时候会存在没用得情况，解决办法是把@click改成@tap代替vue中的点击事件 -->
         <!-- 只有样式，没有拖拽效果需要导入mui的js代码，并初始化 -->
         <div id="slider" class="mui-slider">
             <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                 <div class="mui-scroll">
-                    <a :class="['mui-control-item',item.id==0?'mui-active':'']" data-wid="tab-top-subpage-1.html" v-for="item in controllist" :key="item.id" @click="getPhotolist(item.id)">
+                    <a :class="['mui-control-item',item.id==0?'mui-active':'']" data-wid="tab-top-subpage-1.html" v-for="item in controllist" :key="item.id" @tap="getPhotolist(item.id)">
                         {{item.title}}
                     </a>   
                 </div>
@@ -26,8 +30,7 @@
 </template>
 
 <script>
-// 存在两个BUG：1、导入后会导致底部导航不能跳转，原因是代码段中，其中一个class类冲突（mui-tab-item），解决方法是把底部导航中和该class类的所有样式全部手动考下来，然后重新命名该class类
-//             2、只能刷新后才有拖拽效果，原因是组件初始化的时候还没有mui-scroll-wrapper这个class类，解决办法是把初始化的动作放到vue的钩子函数当中去mounted(){}
+
 //导入mui的js文件
 import mui from '../lib/mui/js/mui.min.js'
 // //初始化滑动控件
@@ -40,6 +43,12 @@ export default {
             controllist:[],
             list:[]//图片列表
         }
+    },
+    mounted() {//组件插入到真是DOM后执行
+        //初始化滑动控件
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+        })
     },
     methods: {
         getControllist(){//获取选择条数据选项
@@ -69,12 +78,6 @@ export default {
         //获取到图片列表,默认获取全部
         this.getPhotolist(0)
     },
-    mounted() {//组件插入到真是DOM后执行
-        //初始化滑动控件
-        mui('.mui-scroll-wrapper').scroll({
-            deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-        })
-    },
 }
 </script>
 
@@ -85,7 +88,7 @@ export default {
     margin: auto;
     }
     *{
-        touch-action: none; 
+        touch-action: pan-y; 
     }
     .photo-list{
         padding:10px;
