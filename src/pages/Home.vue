@@ -1,12 +1,7 @@
 <template>
     <div>
         <!-- 轮播图 -->
-        <mt-swipe>
-            <mt-swipe-item v-for="(item, index) in lunbolists" :key="index">
-                <img :src="item.img" alt="">
-            </mt-swipe-item>
-            
-        </mt-swipe>
+        <home-swipe :lunbolists="lunbolists" :infull=true></home-swipe>
         <!-- 6宫格内容显示 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/news">
@@ -34,6 +29,7 @@
 
 <script>
 import { Toast } from 'mint-ui';
+import swipe from '../components/Swipe.vue'
 export default {
     data(){
         return {
@@ -58,18 +54,14 @@ export default {
     created() {//钩子函数
         this.getlunbotu()
     },
+    components:{
+        "home-swipe":swipe
+    }
     
 }
 </script>
 
 <style scoped>
-    .mint-swipe{
-        height: 200px;
-    }
-    .mint-swipe-item img{
-        width: 100%;
-        height: 100%;
-    }
     .mui-grid-view,.mui-grid-9{
         background-color: #fff;
     }

@@ -1,55 +1,55 @@
 <template>
     <div class="goods-list">
-        <div class="goods-item">
-            <img src="https://img20.360buyimg.com/babel/s320x320_jfs/t1/55230/40/3512/407689/5d12df1eE1d24f849/480bbe8cb024267b.jpg!cc_320x320.webp" alt="">
-            <h3 class="title">AMD 锐龙9 3900X 处理器 (r9)7nm 12核24线程</h3>
+        <!-- 不使用router-link导航，使用编程式导航实现跳转 -->
+        <div class="goods-item" v-for="item in goodslists" :key="item.id" @click="getoinfo(item.id)">
+            <img :src="item.url" alt="">
+            <h3 class="title">{{item.title}}</h3>
             <div class="info">
                 <p class="price">
-                    <span class="now">￥3599</span>
-                    <span class="old">￥3799</span>
+                    <span class="now">￥{{item.sell_price}}</span>
+                    <span class="old">￥{{item.market_price}}</span>
                 </p>
                 <p class="sell">
                     <span>热卖中</span>
-                    <span>剩余40件</span>
+                    <span>剩余{{item.stock_quantity}}件</span>
                 </p>
             </div>
         </div>
-
-        <div class="goods-item">
-            <img src="https://img20.360buyimg.com/babel/s320x320_jfs/t1/55230/40/3512/407689/5d12df1eE1d24f849/480bbe8cb024267b.jpg!cc_320x320.webp" alt="">
-            <h3 class="title">AMD 锐龙9 3900X 处理器 (r9)7nm 12核24线程 (r9)7nm 12核24线程</h3>
-            <div class="info">
-                <p class="price">
-                    <span class="now">￥3599</span>
-                    <span class="old">￥3799</span>
-                </p>
-                <p class="sell">
-                    <span>热卖中</span>
-                    <span>剩余40件</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="goods-item">
-            <img src="https://img20.360buyimg.com/babel/s320x320_jfs/t1/55230/40/3512/407689/5d12df1eE1d24f849/480bbe8cb024267b.jpg!cc_320x320.webp" alt="">
-            <h3 class="title">AMD 锐龙9 3900X 处理器 (r9)7nm 12核24线程</h3>
-            <div class="info">
-                <p class="price">
-                    <span class="now">￥3599</span>
-                    <span class="old">￥3799</span>
-                </p>
-                <p class="sell">
-                    <span>热卖中</span>
-                    <span>剩余40件</span>
-                </p>
-            </div>
-        </div>
+        <!-- 加载更多按钮 -->
+        <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
+   
     </div>
 </template>
 
 <script>
 export default {
-    
+    data(){
+        return {
+            page:1,
+            goodslists:[]
+        }
+    },
+    methods: {
+        getGoodslist(){//获取商品列表
+            this.$http.get('/static/goodslist'+this.page+'.json').then((reslut)=>{
+                if (reslut.data.state == 1) {//成功
+                    this.goodslists=this.goodslists.concat(reslut.data.data)
+                    //console.log(this.newlists)
+                }         
+            })
+        },
+        getMore(){//加载更多
+            this.page++
+            this.getGoodslist()
+        },
+        getoinfo(id){//点击跳转到商品详情页面
+            this.$router.push('/home/goods/'+id)
+        }
+
+    },
+    created() {
+        this.getGoodslist()
+    }
 }
 </script>
 
