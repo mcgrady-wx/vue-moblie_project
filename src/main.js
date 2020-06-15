@@ -2,6 +2,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+//导入vuex实例
+import store from './vuex'
 // //使用mint-ui的组件，按需加载
 // import { Header, Swipe, SwipeItem,Button,Lazyload } from 'mint-ui'
 
@@ -43,6 +45,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
