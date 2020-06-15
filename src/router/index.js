@@ -12,6 +12,8 @@ import Photolist from "../pages/Photolist.vue"
 import Photoinfo from "../pages/Photoinfo.vue"
 import Goodslist from "../pages/Goodslist.vue"
 import Goodsinfo from "../pages/Goodsinfo.vue"
+import GoodsDesc from "../pages/GoodsDesc.vue"
+import GoodsComment from "../pages/GoodsComment.vue"
 
 Vue.use(Router)
 
@@ -27,7 +29,9 @@ export default new Router({
    {path:'/home/photo',component:Photolist},
    {path:'/home/photo/:id',component:Photoinfo},
    {path:'/home/goods',component:Goodslist},
-   {path:'/home/goods/:id',component:Goodsinfo}
+   {path:'/home/goods/:id',component:Goodsinfo},
+   {path:'/home/goodsdesc/:id',component:GoodsDesc},
+   {path:'/home/goodscomment/:id',component:GoodsComment}
   ],
   linkActiveClass:'mui-active'//把默认点击高亮的class类router-link-active 改为自己设置的
 })
