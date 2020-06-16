@@ -62,8 +62,7 @@ export default {
             lunbolists:[],//轮播图
             goodsinfo:{},//商品详细资料
             ballflag:false,
-            num:1,//购买商品的数量
-            n:1//用于计数，判断是第几次点击
+            num:1//保存从子组件传递过来的购买商品数量，默认1
         }
     },
     methods: {
@@ -95,12 +94,16 @@ export default {
         toShopcar(){//添加到购物车和小球动画
             this.ballflag=!this.ballflag
             //通过vuex调用方法修改仓库中count的值
-            if (this.n==1) {
-                this.$store.commit('getCount',this.num)
-                this.n++
-            } else {
-                this.$store.commit('getCountMore',this.num)
+            //获取到所有需要的数据
+            let carobj={
+                count:this.num,
+                id:this.id,
+                title:this.goodsinfo.title,
+                price:this.goodsinfo.sell_price,
+                selected:true
             }
+            this.$store.commit('getcar',carobj)
+
            
         },
         // 小球的三个动画钩子函数
