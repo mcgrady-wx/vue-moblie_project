@@ -100,6 +100,7 @@ export default {
                 id:this.id,
                 title:this.goodsinfo.title,
                 price:this.goodsinfo.sell_price,
+                url:this.lunbolists[0].img,
                 selected:true
             }
             this.$store.commit('getcar',carobj)
