@@ -44,12 +44,25 @@ const store = new Vuex.Store({
         },
         delGoods(state,id){//删除商品
             state.car.some((item,index)=>{
-                if (item.id==id) {
+                if (item.id==id) {//找到ID相同的商品
+                    //在数组中通过下标删除
                     state.car.splice(index,1)
+                    
+                    return true//找到id删除后，直接return true 结束遍历
                 }
-                return true//找到id删除后，直接return true 结束遍历
             })
 
+            //更新后，把数据保存到本地
+            localStorage.setItem('car',JSON.stringify(state.car))
+        },
+        changeGoodsSelected(state,obj){//改变商品selected的值
+            state.car.some((item)=>{
+                if (item.id==obj.id) {
+                    item.selected=obj.selected
+
+                    return true //找到修改后退出遍历
+                }
+            })
             //更新后，把数据保存到本地
             localStorage.setItem('car',JSON.stringify(state.car))
         }
@@ -61,6 +74,14 @@ const store = new Vuex.Store({
                 num+=item.count
             })
             return num
+        },
+        getSelected(state){//获取到商品的selected的状态，来设置页面上开关的状态
+            var select={}//存储所有的商品selected的状态，属性名为商品ID，属性值为selected的值，属性名设置为商品ID是为了调用时每个商品可以用商品ID得到selected的值
+            state.car.forEach((item)=>{
+                select[item.id]=item.selected
+            })
+
+            return select
         }
     }
 })

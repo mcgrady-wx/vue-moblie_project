@@ -4,7 +4,8 @@
         <div class="mui-card">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner" v-for="(item, index) in lists" :key="item.id">
-                    <mt-switch v-model="value"></mt-switch>
+                    <!-- mint-ui的该组件有一个自带的change方法监测数据的变化 -->
+                    <mt-switch v-model="$store.getters.getSelected[item.id]" @change="changeSelected(item.id,$store.getters.getSelected[item.id])"></mt-switch>
                     <img :src="item.url" alt="">
                     <div class="info">
                         <h4 class="title">{{item.title}}</h4>
@@ -21,10 +22,18 @@
         <div class="mui-card">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    这是一个最简单的卡片视图控件；卡片视图常用来显示完整独立的一段信息，比如一篇文章的预览图、作者信息、点赞数量等
+                    <div class="left">
+                        <p>总计（不含运费）</p>
+                        <p>已勾选商品<span>0</span>件，总价：<span>￥0</span></p>
+                    </div>
+                    <mt-button type="danger">去结算</mt-button>
                 </div>
             </div>
         </div>
+
+        <p>
+            {{$store.getters.getSelected}}
+        </p>
     </div>
 </template>
 
@@ -33,7 +42,6 @@ import ShopcarNumbox from '../components/Shopcar_Numbox.vue'
 export default {
     data(){
         return {
-            value:true,
             lists:[]//购物车商品数据
         }
     },
@@ -47,6 +55,10 @@ export default {
 
             //删除仓库中的数据
             this.$store.commit('delGoods',id)
+
+        },
+        changeSelected(id,val){//改变Selected的值，保存到vuex中，需要传递两个值 一个商品ID 一个Selected的值
+            this.$store.commit('changeGoodsSelected',{id:id,selected:val})
 
         }
     },
@@ -64,9 +76,10 @@ export default {
         background-color: #eee;
         overflow: hidden;
     }
-    .mui-card-content-inner{
+    .shopcar .mui-card-content-inner{
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     .shopcar .mui-card-content-inner img{
         width: 60px;
@@ -86,5 +99,11 @@ export default {
     }
     .shopcar .mui-card-content-inner .info p .price{
         color: red;
+        font-weight: bold
+    }
+    .shopcar .mui-card-content-inner .left p span{
+        color: red;
+        font-size: 16px;
+        font-weight: bold;
     }
 </style>
