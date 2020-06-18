@@ -154,7 +154,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .goodsinfo{
         background-color: #eee;
         overflow: hidden;

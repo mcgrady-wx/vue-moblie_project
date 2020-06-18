@@ -18,6 +18,7 @@ import GoodsComment from "../pages/GoodsComment.vue"
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
   routes: [//配置路由
    {path:'/',redirect:'/home'},//设置路由重定向
    {path:'/home',component:Home},
