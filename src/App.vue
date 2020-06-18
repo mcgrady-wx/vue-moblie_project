@@ -1,7 +1,11 @@
 <template>
   <div id="app">
 	<!-- 头部 -->
-	<mt-header fixed title="Vue移动项目"></mt-header>
+	<mt-header fixed title="Vue移动项目">
+		<span slot="left" v-show="flag" @click="goback">
+			<mt-button icon="back">返回</mt-button>
+		</span>
+	</mt-header>
 	<!-- 显示内容区域 动画切换-->
 	<transition>
 		<router-view></router-view>
@@ -32,7 +36,31 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+	return {
+		flag:false
+	}
+  },
+  methods: {
+	goback(){//后退键
+		this.$router.go(-1)
+	}
+  },
+  watch: {
+		//监测路径变化，如果是首页不显示返回按钮
+		//存在BUG，当不在首页的时候刷新了页面，因为路径未发生变化，所有该监听不起作用，需要在钩子函数中进行判断
+		'$route.path':function(newVal){
+			if (newVal==='/home') {
+				this.flag=false
+			} else {
+				this.flag=true
+			}
+		}
+  },
+  created() {
+	  this.flag=this.$route.path==='/home'?false:true
+  },
 }
 </script>
 

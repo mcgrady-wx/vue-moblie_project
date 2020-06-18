@@ -67,9 +67,9 @@ const store = new Vuex.Store({
             localStorage.setItem('car',JSON.stringify(state.car))
         }
     },
-    getters:{
-        getnum(state){//获得购买总数量
-            var num=0//定义购买总数量，默认0
+    getters:{//相当于计算属性
+        getnum(state){//获得购物车总数量
+            var num=0//定义购物车总数量，默认0
             state.car.forEach(item=>{
                 num+=item.count
             })
@@ -82,6 +82,20 @@ const store = new Vuex.Store({
             })
 
             return select
+        },
+        getGoodsCountAndAmount(state){//获得
+            var obj={//初始化选中商品的总数和总价
+                count:0,//选中的商品总数
+                price:0//选中商品的总价
+            }
+            state.car.forEach(item=>{
+                if (item.selected) {
+                    obj.count+=item.count//获得总数
+                    obj.price+=item.count*item.price//获得总价
+                }
+            })
+
+            return obj
         }
     }
 })

@@ -24,16 +24,16 @@
                 <div class="mui-card-content-inner">
                     <div class="left">
                         <p>总计（不含运费）</p>
-                        <p>已勾选商品<span>0</span>件，总价：<span>￥0</span></p>
+                        <p>已勾选商品<span>{{$store.getters.getGoodsCountAndAmount.count}}</span>件，总价：<span>￥{{$store.getters.getGoodsCountAndAmount.price}}</span></p>
                     </div>
                     <mt-button type="danger">去结算</mt-button>
                 </div>
             </div>
         </div>
 
-        <p>
+        <!-- <p>
             {{$store.getters.getSelected}}
-        </p>
+        </p> -->
     </div>
 </template>
 
